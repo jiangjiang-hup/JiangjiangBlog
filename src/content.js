@@ -3,6 +3,8 @@ import energyImage from "../img/sucai1.png";
 import deviceImage from "../img/sucai2.png";
 import visitorImage from "../img/sucai3.jpg";
 import commandImage from "../img/sucai4.png";
+import visitorProfileImage from "../img/sucai5.jpg";
+import warehouseLoginImage from "../img/sucai6.png";
 
 export const projects = [
   {
@@ -83,6 +85,11 @@ export const projects = [
     tags: ["智慧园区", "访客预约", "移动体验"],
     image: visitorImage,
     imageAlt: "博鼎集团智慧园区访客管理小程序，提供访客登录与员工登录入口",
+    screens: [
+      { src: visitorImage, alt: "智慧园区访客登录页" },
+      { src: visitorProfileImage, alt: "智慧园区个人中心与预约服务" },
+      { src: warehouseLoginImage, alt: "智仓 WMS 登录页" },
+    ],
     windowTitle: "visitor.mini.program",
     description: "为访客与员工分别组织入口，让园区通行从清晰的第一步开始。",
     sections: [

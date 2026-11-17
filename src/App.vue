@@ -8,9 +8,9 @@ import {
   watch,
 } from "vue";
 import ParticleOrb from "./components/ParticleOrb.vue";
+import ResumeContent from "./components/ResumeContent.vue";
 import { projects, articles } from "./content";
 import portrait from "../img/touxiang.jpg";
-import resume from "../简历.md?url";
 
 const categories = ["全部", "工程实践", "移动开发", "设备交互"];
 const categoryCounts = Object.fromEntries(
@@ -51,7 +51,7 @@ function motionChanged(event) {
   paused.value = event.matches;
 }
 function openDetail(item, kind) {
-  const hash = `#${kind}/${item.id}`;
+  const hash = kind === "resume" ? "#resume" : `#${kind}/${item.id}`;
   if (location.hash === hash) syncHash();
   else location.hash = hash;
 }
@@ -63,16 +63,18 @@ function unlockScroll() {
 async function syncHash() {
   const match = location.hash.match(/^#(project|article)\/([a-z-]+)$/);
   const item =
-    match &&
-    (match[1] === "project" ? projects : articles).find(
-      (entry) => entry.id === match[2],
-    );
+    location.hash === "#resume"
+      ? { kind: "resume" }
+      : match &&
+        (match[1] === "project" ? projects : articles).find(
+          (entry) => entry.id === match[2],
+        );
   if (item) {
     if (!detailDialog.value.open) {
       previousFocus = document.activeElement;
       modalScrollY = window.scrollY;
     }
-    selected.value = { ...item, kind: match[1] };
+    selected.value = { ...item, kind: match ? match[1] : "resume" };
     const expectedHash = location.hash;
     await nextTick();
     if (location.hash !== expectedHash || !detailDialog.value) return;
@@ -86,7 +88,10 @@ async function syncHash() {
   }
 }
 function closeDetail() {
-  const anchor = selected.value?.kind === "project" ? "#work" : "#journal";
+  const anchor =
+    selected.value?.kind === "resume"
+      ? "#about"
+      : selected.value?.kind === "project" ? "#work" : "#journal";
   history.replaceState(
     null,
     "",
@@ -282,7 +287,16 @@ onBeforeUnmount(() => {
               <span>{{ project.english }}</span
               ><span>↗</span>
             </div>
-            <div v-if="project.image" class="screenshot-wrap">
+            <div v-if="project.screens" class="phone-gallery">
+              <div
+                v-for="screen in project.screens"
+                :key="screen.src"
+                class="phone-frame"
+              >
+                <img :src="screen.src" :alt="screen.alt" loading="lazy" />
+              </div>
+            </div>
+            <div v-else-if="project.image" class="screenshot-wrap">
               <div class="window-chrome">
                 <i></i><i></i><i></i
                 ><span>{{ project.windowTitle }}</span>
@@ -428,11 +442,12 @@ onBeforeUnmount(() => {
           </div>
           <span>2023.07 — 至今</span>
         </div>
-        <a
-          :href="resume"
-          download="李大志-简历.md"
+        <button
+          type="button"
+          aria-haspopup="dialog"
+          @click="openDetail(null, 'resume')"
           class="text-link resume-link"
-          >下载我的简历 <span>↓</span></a
+          >查看我的简历 <span>↗</span></button
         >
       </div>
     </section>
@@ -461,6 +476,7 @@ onBeforeUnmount(() => {
           ><button class="copy-button" @click="copyEmail" aria-live="polite">
             {{ copyLabel }} <span>⧉</span>
           </button>
+          <a href="tel:17660305673" class="contact-phone">电话：17660305673</a>
         </div>
         <a
           href="https://github.com/jiangjiang-hup"
@@ -479,11 +495,19 @@ onBeforeUnmount(() => {
   <dialog
     ref="detailDialog"
     class="detail-dialog"
+    :class="{ 'resume-dialog': selected?.kind === 'resume' }"
     aria-labelledby="detail-title"
     @click="backdrop"
     @cancel.prevent="closeDetail"
   >
-    <div v-if="selected" class="detail-content">
+    <div v-if="selected?.kind === 'resume'" class="resume-content">
+      <div class="resume-toolbar">
+        <span>个人简历 <span class="resume-toolbar-en">/ RESUME</span></span>
+        <button type="button" class="resume-close" autofocus aria-label="关闭简历" @click="closeDetail">关闭 ×</button>
+      </div>
+      <ResumeContent />
+    </div>
+    <div v-else-if="selected" class="detail-content">
       <div class="detail-toolbar">
         <span>{{
           selected.kind === "project"

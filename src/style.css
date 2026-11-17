@@ -570,20 +570,45 @@ h1 > .lime {
 .project-visual.visitor {
   background: radial-gradient(ellipse at center, #354863, #222c3b);
 }
-.visitor .screenshot-wrap {
-  width: 102px;
-  left: calc(50% - 51px);
-  top: 48px;
+.phone-gallery {
+  position: absolute;
+  inset: 60px 22px 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(10px, 2vw, 26px);
+}
+.phone-frame {
+  height: 90%;
+  flex: 0 0 auto;
   border: 4px solid #20252c;
   border-radius: 15px;
-  transform: rotate(7deg);
+  overflow: hidden;
+  background: #f3f8fb;
+  box-shadow: 0 18px 30px #0005;
+  transform: translateY(8px) rotate(-8deg);
+  transition: transform 0.5s ease;
 }
-.visitor .window-chrome {
-  display: none;
+.phone-frame:nth-child(2) {
+  z-index: 1;
+  transform: translateY(-8px) scale(1.06);
 }
-.visitor .screenshot-wrap img {
-  aspect-ratio: 1260 / 2844;
-  object-fit: contain;
+.phone-frame:nth-child(3) {
+  transform: translateY(8px) rotate(8deg);
+}
+.phone-frame img {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+.project:hover .phone-frame:first-child {
+  transform: translateY(2px) rotate(-11deg);
+}
+.project:hover .phone-frame:nth-child(2) {
+  transform: translateY(-14px) scale(1.06);
+}
+.project:hover .phone-frame:nth-child(3) {
+  transform: translateY(2px) rotate(11deg);
 }
 .screenshot-wrap img {
   width: 100%;
@@ -1110,7 +1135,8 @@ h1 > .lime {
   align-items: center;
   flex-wrap: wrap;
 }
-.email {
+.email,
+.contact-phone {
   font-size: 18px;
   border-bottom: 1px solid #5a664a;
   padding-bottom: 5px;
@@ -1154,6 +1180,166 @@ h1 > .lime {
 .detail-dialog::backdrop {
   background: #050703dc;
   backdrop-filter: blur(12px);
+}
+.detail-dialog.resume-dialog {
+  max-width: 920px;
+  border: 1px solid #3b423e;
+  border-radius: 20px;
+  background: #202523;
+  color: #dce0d9;
+  box-shadow: 0 24px 80px #0006;
+  scrollbar-width: thin;
+  scrollbar-color: #59665e #202523;
+}
+.resume-dialog::backdrop {
+  background: #0c100ee8;
+  backdrop-filter: blur(8px);
+}
+.resume-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 32px;
+  border-bottom: 1px solid #39413b;
+  background: #202523;
+  color: #bbc6bc;
+  font-size: 13px;
+}
+.resume-toolbar-en {
+  margin-left: 8px;
+  color: #9ca99f;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.resume-close {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #505f53;
+  border-radius: 10px;
+  background: #2b342e;
+  color: #d2ddce;
+  font-size: 13px;
+}
+.resume-close:hover {
+  background: #37423a;
+}
+.resume-close:focus-visible {
+  outline-color: #b6c7b2;
+  outline-offset: 3px;
+}
+.resume-paper {
+  padding: 36px 44px 28px;
+  font-size: 14px;
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+.resume-header {
+  padding: 0 0 30px;
+  border-bottom: 1px solid #39413b;
+}
+.resume-kicker {
+  color: #afc0ab;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.resume-header h2 {
+  margin: 10px 0 18px;
+  color: #e2e5de;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.resume-profile {
+  color: #cbd3c9;
+}
+.resume-intention {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: 1px solid #424f42;
+  border-radius: 10px;
+  background: #2a342c;
+  color: #c2d0bb;
+}
+.resume-section {
+  padding-block: 28px;
+  border-bottom: 1px solid #39413b;
+}
+.resume-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #dce3d7;
+  font-size: 18px;
+  font-weight: 600;
+}
+.resume-section h3 > span {
+  color: #adbea5;
+  font: 12px Consolas, monospace;
+}
+.resume-section-body {
+  color: #c1cac0;
+}
+.resume-section h4 {
+  margin: 26px 0 12px;
+  color: #d5dfd0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.resume-section h4:first-child {
+  margin-top: 0;
+}
+.resume-section p + p {
+  margin-top: 12px;
+}
+.resume-section ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+.resume-section ul:first-child {
+  margin-top: 0;
+}
+.resume-section li + li {
+  margin-top: 8px;
+}
+.resume-section li::marker {
+  color: #91a68b;
+}
+.resume-section .resume-stack {
+  color: #b5c4ad;
+  font-size: 12px;
+}
+.resume-footer {
+  padding-top: 24px;
+  color: #a6b3a5;
+  text-align: center;
+  font-size: 12px;
+}
+@media (max-width: 600px) {
+  .detail-dialog.resume-dialog {
+    width: calc(100% - 24px);
+    max-height: 92dvh;
+    border-radius: 14px;
+  }
+  .resume-toolbar {
+    padding: 12px 18px;
+  }
+  .resume-paper {
+    padding: 24px 20px;
+  }
+  .resume-header h2 {
+    font-size: 25px;
+  }
+  .resume-profile {
+    line-height: 2.1;
+  }
+  .resume-section {
+    padding-block: 24px;
+  }
 }
 .detail-content {
   padding: 32px 50px 45px;
@@ -1721,7 +1907,8 @@ h1 > .lime {
     flex-direction: column;
     align-items: flex-start;
   }
-  .email {
+  .email,
+  .contact-phone {
     font-size: 16px;
   }
   .copy-button {
