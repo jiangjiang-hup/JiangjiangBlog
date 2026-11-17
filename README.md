@@ -23,7 +23,11 @@ npm run check
 
 本项目是纯静态前端，无需服务端或数据库。需要部署时，执行 `npm run build`，将生成的 `dist` 目录上传到静态服务器。Vite 使用相对资源路径，兼容 GitHub Pages 项目子路径。
 
-此次开发按要求未运行打包命令；推送源码不等于已部署网站。仓库未添加自动构建工作流。
+在线地址：<https://jiangjiang-hup.github.io/JiangjiangBlog/>
+
+`.github/workflows/deploy-pages.yml` 在 `main` 分支更新时自动检查源码、构建并部署到 GitHub Pages，也支持在 GitHub Actions 手动触发。访问者可直接打开网址，无需下载项目或登录 GitHub。首次部署状态可在仓库 Actions 中查看。
+
+本地开发未执行打包命令；发布所需构建由 GitHub Actions 完成。
 
 ## 内容维护
 
