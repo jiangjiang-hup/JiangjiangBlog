@@ -13,6 +13,14 @@ import portrait from "../img/touxiang.jpg";
 import resume from "../简历.md?url";
 
 const categories = ["全部", "工程实践", "移动开发", "设备交互"];
+const categoryCounts = Object.fromEntries(
+  categories.map((name) => [
+    name,
+    name === "全部"
+      ? articles.length
+      : articles.filter((article) => article.category === name).length,
+  ]),
+);
 const category = ref("全部");
 const filteredArticles = computed(() =>
   articles.filter(
@@ -142,7 +150,7 @@ onBeforeUnmount(() => {
       aria-label="Jiangjiang 首页"
       @click="menuOpen = false"
       ><span class="brand-symbol">j.</span
-      ><span>JIANGJIANG<span class="brand-dot">✳</span></span></a
+      ><span>JIANGJIANG<span class="brand-dot">❋︎</span></span></a
     >
     <nav class="desktop-nav" aria-label="主导航">
       <a
@@ -202,7 +210,7 @@ onBeforeUnmount(() => {
           <p class="eyebrow">你好，我是李大志 <span>AKA. JIANGJIANG</span></p>
           <h1>
             把想法<br />写进<span class="lime"
-              >现实<span class="title-asterisk">✳</span></span
+              >现实<span class="title-asterisk">❋︎</span></span
             ><span class="period">.</span>
           </h1>
           <p class="hero-description">
@@ -238,15 +246,15 @@ onBeforeUnmount(() => {
       </div>
       <div class="hero-bottom">
         <a href="#work"><span class="scroll-icon">↓</span> SCROLL TO EXPLORE</a
-        ><span>认真做事。保持好奇。<span class="tiny-star">✳</span></span
+        ><span>认真做事。保持好奇。<span class="tiny-star">❋︎</span></span
         ><span class="hero-bottom-right">CODE IS MY MEDIUM.</span>
       </div>
     </section>
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
         <span v-for="i in 4" :key="i"
-          >LESS ORDINARY <b>✳</b> MORE POSSIBILITY <b>✳</b> KEEP CREATING
-          <b>✳</b></span
+          >LESS ORDINARY <b>❋︎</b> MORE POSSIBILITY <b>❋︎</b> KEEP CREATING
+          <b>❋︎</b></span
         >
       </div>
     </div>
@@ -353,7 +361,7 @@ onBeforeUnmount(() => {
             :class="{ selected: category === tab }"
             @click="category = tab"
           >
-            {{ tab }}<span v-if="tab === '全部'"> / 03</span>
+            {{ tab }}<span> / {{ categoryCounts[tab] }}</span>
           </button>
         </div>
         <span>根据项目经历整理的实践手记</span>

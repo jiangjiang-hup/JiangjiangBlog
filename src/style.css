@@ -132,6 +132,8 @@ a {
   padding-right: 4px;
 }
 .brand-dot {
+  font-family: 'Segoe UI Symbol', 'Arial Unicode MS', sans-serif;
+  font-variant-emoji: text;
   font-size: 10px;
   vertical-align: top;
   margin-left: 3px;
@@ -249,6 +251,8 @@ h1 > .lime {
   position: relative;
 }
 .title-asterisk {
+  font-family: 'Segoe UI Symbol', 'Arial Unicode MS', sans-serif;
+  font-variant-emoji: text;
   display: inline-block;
   font-weight: 400;
   font-size: 0.55em;
@@ -433,6 +437,8 @@ h1 > .lime {
   letter-spacing: 2px;
 }
 .tiny-star {
+  font-family: 'Segoe UI Symbol', 'Arial Unicode MS', sans-serif;
+  font-variant-emoji: text;
   color: var(--lime);
   margin-left: 15px;
   font-size: 20px;
@@ -464,6 +470,8 @@ h1 > .lime {
   white-space: nowrap;
 }
 .ticker b {
+  font-family: 'Segoe UI Symbol', 'Arial Unicode MS', sans-serif;
+  font-variant-emoji: text;
   font-size: 28px;
   font-weight: 400;
 }

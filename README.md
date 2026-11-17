@@ -31,7 +31,8 @@ npm run check
 
 ## 内容维护
 
-- `src/content.js`：项目、技术手记、分类及完整正文。
+- `src/content.js`：项目内容与资源引用。
+- `src/articles.json`：9 篇技术手记及完整正文（工程实践 4 篇、移动开发 3 篇、设备交互 2 篇）。分类数量根据内容自动计算。
 - `src/App.vue`：个人介绍、导航、联系方式、弹窗与筛选。
 - `src/style.css`：布局、配色、响应式样式及动效。
 - `src/components/ParticleOrb.vue`：Canvas 粒子球，支持暂停、离屏停绘和减少动态效果偏好。

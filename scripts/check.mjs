@@ -49,7 +49,10 @@ const contentSource = readFileSync("src/content.js", "utf8").replace(
   /^import (\w+) from ["']([^"']+)["'];?$/gm,
   (_, binding, path) => {
     assert.ok(existsSync(resolve("src", path)), `Missing content asset: ${path}`);
-    return `const ${binding} = ${JSON.stringify(path)};`;
+    const value = path.endsWith(".json")
+      ? JSON.parse(readFileSync(resolve("src", path), "utf8"))
+      : path;
+    return `const ${binding} = ${JSON.stringify(value)};`;
   },
 );
 const content = await import(
